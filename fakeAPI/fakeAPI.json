@@ -1,0 +1,40 @@
+{
+    "expenseList": [
+        {
+            "id": 1,
+            "type": "",
+            "title": "انتخاب دسته‌بندی",
+            "icon": "KeyboardArrowLeftOutlined",
+            "badgeIcon": "DataSaverOnOutlined",
+            "text": "",
+            "colorLevel": "red"
+        },
+        {
+            "id": 2,
+            "type": "input",
+            "title": "توضیحات مربوط به تراکنش را بنویسید(اختیاری)",
+            "icon": "Stop",
+            "badgeIcon": "Create",
+            "text": "",
+            "colorLevel": "yellow"
+        },
+        {
+            "id": 3,
+            "type": "",
+            "title": "مبلغ تراکنش را وارد کنید",
+            "icon": "Stop",
+            "badgeIcon": "MonetizationOnOutlined",
+            "text": "تومان",
+            "colorLevel": "red"
+        },
+        {
+            "id": 4,
+            "type": "",
+            "title": "26 آبان",
+            "icon": "CalendarMonthOutlined",
+            "badgeIcon": "CalendarMonthOutlined",
+            "text": "انتخاب تاریخ",
+            "colorLevel": "green"
+        }
+    ]
+}
