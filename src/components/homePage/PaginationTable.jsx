@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -11,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 
 const columns = [
   { id: '1', label: 'نام و نام‌خانوادگی', minWidth: 170 },
-  { id: '2', label: 'یوزر', minWidth: 100 },
+  { id: '2', label: 'نام کاربری', minWidth: 100 },
   { id: '3', label: 'ایمیل', minWidth: 100 },
   { id: '4', label: 'کشور', minWidth: 100 },
   { id: '5', label: 'شهر', minWidth: 100 },
@@ -21,7 +22,8 @@ const columns = [
 const PaginationTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rowsData, setRowsData] = useState([])
+  const [rowsData, setRowsData] = useState([]);
+  const navigate = useNavigate();
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -31,17 +33,14 @@ const PaginationTable = () => {
   };
   useEffect(() => {
     axios.get('https://jsonplaceholder.ir/users')
-      .then(response => {
-        console.log(response.data)
-        setRowsData(response.data)
-      })
+      .then(response => setRowsData(response.data))
   }, [])
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }} className='my-20 border border-red-300'>
       <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
+        <Table stickyHeader aria-label="sticky table" >
+          <TableHead >
+            <TableRow >
               {columns.map((item, index) => (
                 <TableCell
                   key={index}
@@ -57,32 +56,30 @@ const PaginationTable = () => {
             {rowsData
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item, index) =>
-                <TableRow hover role="checkbox" tabIndex={-1} key={index} className='cursor-pointer'>
-                  <TableCell align='center'>
+                <TableRow hover role="checkbox" tabIndex={-1} key={index} className='cursor-pointer' onClick={() => navigate('/' + item.id)}>
+                  <TableCell align='center' >
                     {item.name}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' >
                     {item.username}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' >
                     {item.email}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' >
                     {item.address.country}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' >
                     {item.address.city}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' >
                     {item.phone}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' >
                     {item.company}
                   </TableCell>
                 </TableRow>
-
               )}
-
           </TableBody>
         </Table>
       </TableContainer>
