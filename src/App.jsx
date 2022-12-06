@@ -3,7 +3,11 @@ import { Provider } from "react-redux";
 import { Route, Routes } from "react-router";
 import PaginationTable from "./components/homePage/PaginationTable";
 import ProfilePage from "./components/profilePage/ProfilePage";
-import Store from "./redux/Store";
+import { Store, saveState } from "./redux/Store";
+
+Store.subscribe(() => {
+  saveState(Store.getState())
+})
 
 const App = () => {
   return (
