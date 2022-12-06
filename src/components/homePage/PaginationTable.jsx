@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -9,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { allUsersDetails, userId } from '../../redux/UserAction';
 
 const columns = [
   { id: '1', label: 'نام و نام‌خانوادگی', minWidth: 170 },
@@ -22,8 +24,9 @@ const columns = [
 const PaginationTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rowsData, setRowsData] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userProfileInfo = useSelector(state => state);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -33,7 +36,10 @@ const PaginationTable = () => {
   };
   useEffect(() => {
     axios.get('https://jsonplaceholder.ir/users')
-      .then(response => setRowsData(response.data))
+      .then(response => {
+        console.log(response.data)
+        dispatch(allUsersDetails(response.data))
+      })
   }, [])
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }} className='my-20 border border-red-300'>
@@ -53,10 +59,14 @@ const PaginationTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>ّ
-            {rowsData
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((item, index) =>
-                <TableRow hover role="checkbox" tabIndex={-1} key={index} className='cursor-pointer' onClick={() => navigate('/' + item.id)}>
+            {userProfileInfo && userProfileInfo.allUsersInfo
+              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              ?.map((item, index) =>
+                <TableRow hover role="checkbox" tabIndex={-1} key={index} className='cursor-pointer'
+                  onClick={() => {
+                    dispatch(userId(item.id))
+                    navigate('/' + item.id)
+                  }}>
                   <TableCell align='center' >
                     {item.name}
                   </TableCell>
@@ -86,7 +96,7 @@ const PaginationTable = () => {
       <TablePagination
         rowsPerPageOptions={[2, 5, 10]}
         component="div"
-        count={rowsData.length}
+        count={userProfileInfo?.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -96,3 +106,9 @@ const PaginationTable = () => {
   );
 }
 export default PaginationTable;
+      // var pageView = sessionStorage.getItem("pageView");
+        // if (pageView == null) {
+        //   pageView = [];
+        // }
+        // sessionStorage.setItem("pageView", JSON.stringify(response.data));
+        // setRowsData(JSON.parse(pageView));
