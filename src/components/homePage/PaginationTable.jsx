@@ -37,7 +37,7 @@ const PaginationTable = () => {
   useEffect(() => {
     axios.get('https://jsonplaceholder.ir/users')
       .then(response => {
-        console.log(response.data)
+        console.log('API call /users')
         dispatch(allUsersDetails(response.data))
       })
   }, [])

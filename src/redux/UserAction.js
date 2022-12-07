@@ -5,7 +5,7 @@ export const allUsersDetails = (allUsersInfo) => {
   return {
     type: ALL_USERS_DETAILS,
     payload: {
-      allUsersInfo: allUsersInfo, // userInfo=[{},{}]
+      allUsersInfo: allUsersInfo, // allUsersInfo=[{},{}]
     },
   };
 };
@@ -13,7 +13,7 @@ export const userProfileInfo = (userProfileDetail) => {
   return {
     type: USER_PROFILE_INFO,
     payload: {
-      userProfileDetail: userProfileDetail, // userInfo=[{},{}]
+      userProfileDetails: userProfileDetail, // userProfileDetail={}
     },
   };
 };
@@ -22,7 +22,7 @@ export const userId = (id) => {
     axios
       .get(`https://jsonplaceholder.ir/users/${id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(typeof res.data);
         dispatch(userProfileInfo(res.data));
       })
       .catch((err) => {

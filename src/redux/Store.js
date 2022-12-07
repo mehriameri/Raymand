@@ -1,30 +1,14 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
+import { persistReducer } from 'redux-persist';
+import storageSession from 'redux-persist/lib/storage/session';
+import storage from 'redux-persist/lib/storage';
 import UserReducer from "./UserReducer";
 
-export const loadState = () => {
-  try {
-    const initState = sessionStorage.getItem("state");
-    if (initState === null) {
-      return undefined;
-    }
-    return JSON.parse(sessionStorage.getItem("state"));
-  } catch (error) {
-    console.log("getError", error);
-    return undefined;
-  }
+const persistConfig = {
+  key: 'root',
+  storage: storageSession
 };
-
-export const saveState = (state) => {
-  try {
-    sessionStorage.setItem("state", JSON.stringify({ state }));
-  } catch (err) {
-    console.log("getError", err);
-  }
-};
-
-export const Store = createStore(
-  UserReducer,
-  loadState(),
-  applyMiddleware(thunk)
-);
+const persistedReducer = persistReducer(persistConfig, UserReducer);
+const Store = createStore(persistedReducer, applyMiddleware(thunk));
+export default Store;
