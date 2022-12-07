@@ -42,67 +42,72 @@ const PaginationTable = () => {
       })
   }, [])
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }} className='my-20 border border-red-300'>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table" >
-          <TableHead >
-            <TableRow >
-              {columns.map((item, index) => (
-                <TableCell
-                  key={index}
-                  align='center'
-                  style={{ minWidth: item.minWidth, fontWeight: 'bold', fontSize: '18px' }}
-                >
-                  {item.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>ّ
-            {userProfileInfo && userProfileInfo.allUsersInfo
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              ?.map((item, index) =>
-                <TableRow hover role="checkbox" tabIndex={-1} key={index} className='cursor-pointer'
-                  onClick={() => {
-                    dispatch(userId(item.id))
-                    navigate('/' + item.id)
-                  }}>
-                  <TableCell align='center' >
-                    {item.name}
+    <div className='fixed inset-0 flex flex-col justify-center items-center w-full bg-[#302d29]'>
+      <div className='fixed top-0 left-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 100%)' }}></div>
+      <div className='fixed top-0 left-0 bg-[#ffb412] w-[70%] h-full z-10' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }}></div>
+
+      <Paper sx={{ width: '80%', overflow: 'hidden', borderRadius: '8px' }} className='z-50'>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table" sx={{ "& .MuiTableRow-root:hover": { backgroundColor: "#ffb412" } }}>
+            <TableHead >
+              <TableRow >
+                {columns.map((item, index) => (
+                  <TableCell
+                    key={index}
+                    align='center'
+                    style={{ minWidth: item.minWidth, fontWeight: 'bold', fontSize: '18px' }}
+                  >
+                    {item.label}
                   </TableCell>
-                  <TableCell align='center' >
-                    {item.username}
-                  </TableCell>
-                  <TableCell align='center' >
-                    {item.email}
-                  </TableCell>
-                  <TableCell align='center' >
-                    {item.address.country}
-                  </TableCell>
-                  <TableCell align='center' >
-                    {item.address.city}
-                  </TableCell>
-                  <TableCell align='center' >
-                    {item.phone}
-                  </TableCell>
-                  <TableCell align='center' >
-                    {item.company}
-                  </TableCell>
-                </TableRow>
-              )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[2, 5, 10]}
-        component="div"
-        count={userProfileInfo?.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>ّ
+              {userProfileInfo && userProfileInfo.allUsersInfo
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.map((item, index) =>
+                  <TableRow hover='red' role="checkbox" tabIndex={-1} key={index} className='cursor-pointer'
+                    onClick={() => {
+                      dispatch(userId(item.id))
+                      navigate('/' + item.id)
+                    }}>
+                    <TableCell align='center' >
+                      {item.name}
+                    </TableCell>
+                    <TableCell align='center' >
+                      {item.username}
+                    </TableCell>
+                    <TableCell align='center' >
+                      {item.email}
+                    </TableCell>
+                    <TableCell align='center' >
+                      {item.address.country}
+                    </TableCell>
+                    <TableCell align='center' >
+                      {item.address.city}
+                    </TableCell>
+                    <TableCell align='center' >
+                      {item.phone}
+                    </TableCell>
+                    <TableCell align='center' >
+                      {item.company}
+                    </TableCell>
+                  </TableRow>
+                )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {userProfileInfo && <TablePagination
+          rowsPerPageOptions={[2, 5, 10]}
+          component="div"
+          count={userProfileInfo.allUsersInfo.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />}
+      </Paper>
+    </div>
   );
 }
 export default PaginationTable;
