@@ -1,14 +1,14 @@
 import axios from "axios";
 import { ALL_USERS_DETAILS, USER_PROFILE_INFO } from "./ActionTypes";
 
-// export const allUsersDetails = (allUsersInfoDetail) => {
-//   return {
-//     type: ALL_USERS_DETAILS,
-//     payload: {
-//       allUsersInfo: allUsersInfoDetail, // allUsersInfo=[{},{}]
-//     },
-//   };
-// };
+export const allUsersDetails = (allUsersInfoDetail) => {
+  return {
+    type: ALL_USERS_DETAILS,
+    payload: {
+      allUsersInfo: allUsersInfoDetail, // allUsersInfo=[{},{}]
+    },
+  };
+};
 export const userProfileInfo = (userProfileDetail) => {
   return {
     type: USER_PROFILE_INFO,

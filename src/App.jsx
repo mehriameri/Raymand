@@ -14,7 +14,7 @@ const App = () => {
       <PersistGate loading={null} persistor={persistor}>
         <Routes>
           <Route path="/" element={<PaginationTable />} />
-          <Route path="/:id" element={<ProfilePage />} />
+          <Route path="/users/:id" element={<ProfilePage />} />
         </Routes>
       </PersistGate>
     </Provider>

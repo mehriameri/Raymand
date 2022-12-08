@@ -32,8 +32,8 @@ const ProfilePage = () => {
 
     return (
         <div className='w-full flex flex-col justify-center items-center fixed inset-0 bg-[#302d29]'>
-            <div className='fixed top-0 right-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 100% 100%, 100% 0)' }}></div>
-            <div className='fixed top-0 right-0 bg-[#ffb412] w-[70%] h-full z-10' style={{ clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)' }}></div>
+            <div className='fixed top-0 left-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 100%)' }}></div>
+            <div className='fixed top-0 left-0 bg-[#ffb412] w-[60%] h-full z-10' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }}></div>
             <div className='w-full rounded-3xl bg-[#302d29] p-4 z-50 border-4 border-[#ffb412]' style={{ maxWidth: 800 }}>
                 <div className='grid grid-cols-3 gap-3'>
                     <div className='rounded-xl col-span-1'>

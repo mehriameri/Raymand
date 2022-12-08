@@ -12,7 +12,7 @@ const Map = ({ position }) => {
         return null
     }
     return (
-        <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: "420px" }}>
+        <MapContainer center={position} zoom={10} scrollWheelZoom={true} style={{ height: "420px" }}>
             <FlyMapTo />
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
