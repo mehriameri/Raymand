@@ -10,7 +10,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { allUsersDetails, userId } from '../../redux/UserAction';
+import { allUsersDetails, userId } from '../redux/UserAction';
+import { IconButton } from '@mui/material';
 
 const columns = [
   { id: '1', label: 'نام و نام‌خانوادگی', minWidth: 170 },
@@ -21,10 +22,9 @@ const columns = [
   { id: '6', label: 'شماره تماس', minWidth: 100 },
   { id: '7', label: 'شرکت', minWidth: 100 },
 ];
-const PaginationTable = () => {
+const HomePage = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  // const [data, setdata] = useState([])
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const allUsersInfo = useSelector(state => state.allUsersInfoList);
@@ -36,19 +36,18 @@ const PaginationTable = () => {
     setPage(0);
   };
   useEffect(() => {
-    if (allUsersDetails.length === 0) {
+    if (allUsersInfo.length === 0) {
       axios.get('https://jsonplaceholder.ir/users')
         .then(response => {
-          dispatch(allUsersDetails(response.data))
-          // setdata(response.data);
+          dispatch(allUsersDetails(response.data));
         })
     }
   }, []);
 
   return (
     <div className='fixed inset-0 flex flex-col justify-center items-center w-full bg-[#302d29]'>
-      <div className='fixed top-0 right-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 100%)' }}></div>
-      <div className='fixed top-0 right-0 bg-[#ffb412] w-[70%] h-full z-10' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }}></div>
+      <div className='fixed top-0 left-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 100%)' }}></div>
+      <div className='fixed top-0 left-0 bg-[#ffb412] w-[70%] h-full z-10' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }}></div>
       <Paper sx={{ width: '80%', overflow: 'hidden', borderRadius: '8px' }} className='z-50'>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table" sx={{ "& .MuiTableRow-root:hover": { backgroundColor: "#ffb412" } }}>
@@ -101,16 +100,19 @@ const PaginationTable = () => {
           </Table>
         </TableContainer>
         {allUsersInfo && <TablePagination
-          rowsPerPageOptions={[2, 5, 10]}
+          rowsPerPageOptions={[2, 5, 10 ]}
           component="div"
           count={allUsersInfo.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage={'تعداد ردیف در هر صفحه'}
+          style={{display:'flex', justifyContent:'center'}}
         />}
       </Paper>
     </div>
   );
 }
-export default PaginationTable;
+
+export default HomePage;

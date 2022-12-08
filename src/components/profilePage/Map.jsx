@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 
-const Map = ({ position }) => {
+const Map = ({ position, name, avatar }) => {
     function FlyMapTo() {
         const map = useMap();
         useEffect(() => {
@@ -12,7 +12,7 @@ const Map = ({ position }) => {
         return null
     }
     return (
-        <MapContainer center={position} zoom={10} scrollWheelZoom={true} style={{ height: "420px" }}>
+        <MapContainer center={position} zoom={15} scrollWheelZoom={true} style={{ height: "420px" }}>
             <FlyMapTo />
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -20,7 +20,7 @@ const Map = ({ position }) => {
             />
             <Marker position={position} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41] })}>
                 <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
+                   <p className='text-blue-400'> {name}</p>
                 </Popup>
             </Marker>
         </MapContainer>

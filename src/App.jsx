@@ -4,8 +4,8 @@ import { Route, Routes } from "react-router";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from "redux-persist/integration/react";
 import Store from "./redux/Store";
-import PaginationTable from "./components/homePage/PaginationTable";
-import ProfilePage from "./components/profilePage/ProfilePage";
+import ProfilePage from "./pages/ProfilePage";
+import HomePage from './pages/HomePage';
 
 let persistor = persistStore(Store);
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
     <Provider store={Store}>
       <PersistGate loading={null} persistor={persistor}>
         <Routes>
-          <Route path="/" element={<PaginationTable />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/users/:id" element={<ProfilePage />} />
         </Routes>
       </PersistGate>

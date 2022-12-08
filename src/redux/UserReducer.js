@@ -4,7 +4,6 @@ const initState = {
   allUsersInfoList: [],
   userProfileDetail: {},
 };
-
 const UserReducer = (state = initState, action) => {
   switch (action.type) {
     case ALL_USERS_DETAILS:
