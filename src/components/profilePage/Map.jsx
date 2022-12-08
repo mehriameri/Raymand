@@ -1,24 +1,30 @@
-import React from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import markerIconPng from "leaflet/dist/images/marker-icon.png"
-import { Icon } from 'leaflet'
+import React, { useEffect } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
 
-const Map = ({position}) => {
-    // console.log(position)
+const Map = ({ position }) => {
+    function FlyMapTo() {
+        const map = useMap();
+        useEffect(() => {
+            map.setView(position)
+        }, [position])
+        return null
+    }
     return (
-            <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "400px" }}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={position} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41] })}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-            </MapContainer>
-    
+        <MapContainer center={position} zoom={13} scrollWheelZoom={true} style={{ height: "420px" }}>
+            <FlyMapTo />
+            <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={position} icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41] })}>
+                <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+            </Marker>
+        </MapContainer>
     )
 }
 
-export default Map
+export default Map;

@@ -1,9 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { AccountCircleOutlined, MailOutlined, BadgeOutlined, PhoneEnabled, PinOutlined, LanguageOutlined, PinDropOutlined, ApartmentOutlined } from '@mui/icons-material';
 import Map from './Map';
-import { polygon } from 'leaflet';
-
+import {
+    AccountCircleOutlined,
+    MailOutlined,
+    BadgeOutlined,
+    PhoneEnabled,
+    PinOutlined,
+    LanguageOutlined,
+    PinDropOutlined,
+    ApartmentOutlined
+} from '@mui/icons-material';
 const ProfilePage = () => {
     const userInfo = useSelector(state => state.userProfileDetail);
     const icons = [
@@ -18,11 +25,11 @@ const ProfilePage = () => {
         <LanguageOutlined style={{ color: '#f7990c' }} />,
         <ApartmentOutlined style={{ color: '#f7990c' }} />,
     ];
-    var userInfoArray = []
+    var userInfoArray = [];
     for (let i = 0; i < icons.length; i++) {
         userInfoArray[i] = Object.entries(userInfo)[i]?.concat((icons[i]));
-    }
-    console.log(userInfoArray)
+    };
+
     return (
         <div className='w-full flex flex-col justify-center items-center fixed inset-0 bg-[#302d29]'>
             <div className='fixed top-0 right-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 100% 100%, 100% 0)' }}></div>
@@ -41,7 +48,7 @@ const ProfilePage = () => {
                             {userInfoArray
                                 ?.filter((item) => item?.includes('name') || item?.includes('email') || item?.includes('phone') || item?.includes('website') || item?.includes('company'))
                                 ?.map((item, index) => {
-                                    return <div key={index} className='flex gap-2 p-2 m-1'>
+                                    return <div key={index} className='flex gap-2 cursor-pointer p-2 m-1'>
                                         {item[2]}
                                         <p>{item[1]}</p>
                                     </div>
@@ -62,8 +69,17 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className='rounded-b-2xl bg-white border border-gray-200 shadow-lg col-span-2'>
-                        <Map position={[38, 46]} />
-                        <p>آدرس :</p>
+                        {userInfoArray
+                            ?.filter((item) => item?.includes('address'))
+                            ?.map((item, index) => {
+                                return <>
+                                    <Map position={[parseFloat(item[1].geo.lat), parseFloat(item[1].geo.lng)]} />
+                                    <div key={index} className='flex gap-2 bg-white border border-gray-200 rounded-lg p-2 mx-2 my-4'>
+                                        <p className='text-xs'>{item[2]}</p>
+                                        <p>{item[1].country}،  {item[1].city}، {item[1].street}، {item[1].alley}، پلاک {item[1].number} </p>
+                                    </div>
+                                </>
+                            })}
                     </div>
                 </div>
             </div>

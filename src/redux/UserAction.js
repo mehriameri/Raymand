@@ -1,14 +1,14 @@
 import axios from "axios";
 import { ALL_USERS_DETAILS, USER_PROFILE_INFO } from "./ActionTypes";
 
-export const allUsersDetails = (allUsersInfo) => {
-  return {
-    type: ALL_USERS_DETAILS,
-    payload: {
-      allUsersInfo: allUsersInfo, // allUsersInfo=[{},{}]
-    },
-  };
-};
+// export const allUsersDetails = (allUsersInfoDetail) => {
+//   return {
+//     type: ALL_USERS_DETAILS,
+//     payload: {
+//       allUsersInfo: allUsersInfoDetail, // allUsersInfo=[{},{}]
+//     },
+//   };
+// };
 export const userProfileInfo = (userProfileDetail) => {
   return {
     type: USER_PROFILE_INFO,
@@ -22,7 +22,6 @@ export const userId = (id) => {
     axios
       .get(`https://jsonplaceholder.ir/users/${id}`)
       .then((res) => {
-        // console.log(typeof res.data);
         dispatch(userProfileInfo(res.data));
       })
       .catch((err) => {

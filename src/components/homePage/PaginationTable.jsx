@@ -24,9 +24,10 @@ const columns = [
 const PaginationTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [data, setdata] = useState([])
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userProfileInfo = useSelector(state => state);
+  // const allUsersInfo = useSelector(state => state.allUsersInfoList);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -37,15 +38,15 @@ const PaginationTable = () => {
   useEffect(() => {
     axios.get('https://jsonplaceholder.ir/users')
       .then(response => {
-        console.log('API call /users')
-        dispatch(allUsersDetails(response.data))
+        // dispatch(allUsersDetails(response.data))
+        setdata(response.data)
       })
-  }, [])
+  }, []);
+
   return (
     <div className='fixed inset-0 flex flex-col justify-center items-center w-full bg-[#302d29]'>
       <div className='fixed top-0 left-0 bg-[#ff9100] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 100%)' }}></div>
       <div className='fixed top-0 left-0 bg-[#ffb412] w-[70%] h-full z-10' style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }}></div>
-
       <Paper sx={{ width: '80%', overflow: 'hidden', borderRadius: '8px' }} className='z-50'>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table" sx={{ "& .MuiTableRow-root:hover": { backgroundColor: "#ffb412" } }}>
@@ -63,7 +64,7 @@ const PaginationTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>ّ
-              {userProfileInfo && userProfileInfo.allUsersInfo
+              {data
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 ?.map((item, index) =>
                   <TableRow hover='red' role="checkbox" tabIndex={-1} key={index} className='cursor-pointer'
@@ -97,10 +98,10 @@ const PaginationTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        {userProfileInfo && <TablePagination
+        {data && <TablePagination
           rowsPerPageOptions={[2, 5, 10]}
           component="div"
-          count={userProfileInfo.allUsersInfo.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -111,9 +112,3 @@ const PaginationTable = () => {
   );
 }
 export default PaginationTable;
-      // var pageView = sessionStorage.getItem("pageView");
-        // if (pageView == null) {
-        //   pageView = [];
-        // }
-        // sessionStorage.setItem("pageView", JSON.stringify(response.data));
-        // setRowsData(JSON.parse(pageView));
