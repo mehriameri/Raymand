@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Map from '../components/profilePage/Map';
 import {
     AccountCircleOutlined,
@@ -11,9 +11,15 @@ import {
     PinDropOutlined,
     ApartmentOutlined
 } from '@mui/icons-material';
+import { useNavigate, useParams } from 'react-router';
+import { useEffect } from 'react';
+import { userId } from '../redux/UserAction';
 
 const ProfilePage = () => {
     const userInfo = useSelector(state => state.userProfileDetail);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { id } = useParams();
     const icons = {
         'id': <BadgeOutlined style={{ color: '#f7990c' }} />,
         'name': <AccountCircleOutlined style={{ color: '#f7990c' }} />,
@@ -26,6 +32,9 @@ const ProfilePage = () => {
         'website': <LanguageOutlined style={{ color: '#f7990c' }} />,
         'company': <ApartmentOutlined style={{ color: '#f7990c' }} />
     }
+    useEffect(() => {
+        dispatch(userId(id));
+    }, [id])
     return (
         <div className='w-full flex flex-col justify-center items-center sm:fixed sm:inset-0 bg-[#302d29]'>
             <div className='fixed top-0 right-0 bg-[#ff9100] w-[70%] h-full z-10' style={{ clipPath: 'polygon(100% 0, 0 100%, 100% 100%)' }}></div>
@@ -34,11 +43,13 @@ const ProfilePage = () => {
                 <div className='sm:grid sm:grid-cols-3 gap-3'>
                     <div className='sm:col-span-1rounded-xl'>
                         <div className='relative border border-white bg-[#ff9100] rounded-t-xl h-32'>
-                            <span className='absolute top-20 left-[36%] rounded-full bg-white p-0.5'>
-                                <span className='flex rounded-full border-2 bg-white border-[#ff9100] p-2'>
-                                    <img src={userInfo.avatar} alt='' className='w-12 h-12' />
+                            <div className='flex flex-col'>
+                                <span className='rounded-full absolute top-20 left-[50%] translate-x-[-50%] bg-white p-0.5'>
+                                    <span className='flex rounded-full border-2 bg-white border-[#ff9100] p-2'>
+                                        <img src={userInfo.avatar} alt='' className='w-12 h-12' />
+                                    </span>
                                 </span>
-                            </span>
+                            </div>
                         </div>
                         <div className='flex flex-col bg-white py-8 px-4'>
                             {Object
@@ -84,11 +95,10 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>
+            <button type='button' className='bg-[#64affa] rounded-lg text-[#043566] hover:bg-[#043566] hover:text-white px-6 py-2 my-4 z-50' onClick={() => navigate('/')}>بازگشت به صفحه اصلی </button>
         </div>
     )
 }
 
 export default ProfilePage;
-
-
 
