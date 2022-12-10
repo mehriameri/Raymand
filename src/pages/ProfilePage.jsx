@@ -27,12 +27,12 @@ const ProfilePage = () => {
         'company': <ApartmentOutlined style={{ color: '#f7990c' }} />
     }
     return (
-        <div className='w-full flex flex-col justify-center items-center fixed inset-0 bg-[#302d29]'>
+        <div className='w-full flex flex-col justify-center items-center sm:fixed sm:inset-0 bg-[#302d29]'>
             <div className='fixed top-0 right-0 bg-[#ff9100] w-[70%] h-full z-10' style={{ clipPath: 'polygon(100% 0, 0 100%, 100% 100%)' }}></div>
             <div className='fixed top-0 right-0 bg-[#ffb412] w-[40%] h-full shadow-xl z-20' style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
             <div className='w-full rounded-3xl bg-[#302d29] p-4 z-50 border-4 border-[#ffb412]' style={{ maxWidth: 800 }}>
-                <div className='grid grid-cols-3 gap-3'>
-                    <div className='rounded-xl col-span-1'>
+                <div className='sm:grid sm:grid-cols-3 gap-3'>
+                    <div className='sm:col-span-1rounded-xl'>
                         <div className='relative border border-white bg-[#ff9100] rounded-t-xl h-32'>
                             <span className='absolute top-20 left-[36%] rounded-full bg-white p-0.5'>
                                 <span className='flex rounded-full border-2 bg-white border-[#ff9100] p-2'>
@@ -67,7 +67,7 @@ const ProfilePage = () => {
                                 })}
                         </div>
                     </div>
-                    <div className='rounded-b-2xl bg-white border border-gray-200 shadow-lg col-span-2'>
+                    <div className='sm:col-span-2 rounded-b-2xl bg-white border border-gray-200 shadow-lg'>
                         {Object
                             .keys(userInfo)
                             ?.filter(item => item == 'address')
