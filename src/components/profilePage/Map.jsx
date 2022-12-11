@@ -5,13 +5,10 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { useState } from 'react';
 
 const Map = ({ position, name, avatar }) => {
-    // const [center,setCenter]=useState
     function FlyMapTo() {
         const map = useMap();
-    //    console.log( map.getCenter())
         useEffect(() => {
             map.setView(position);
-            // map.addEventListener('mousemove', () => map.getCenter(position))
         }, [position])
         return null
     }
@@ -29,7 +26,6 @@ const Map = ({ position, name, avatar }) => {
                     </Popup>
                 </Marker>
             </MapContainer>
-            <button type='button' className='border border-red-500 z-50' onClick={() => alert()}>return</button>
         </>
     )
 }
